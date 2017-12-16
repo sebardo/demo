@@ -1,10 +1,10 @@
 <?php 
 
 $commands = array(
-//	'echo $PWD',
-//	'whoami',
+	'echo $PWD',
+	'whoami',
 	'git pull',
-//	'git status',
+	'git status',
 //	'git submodule sync',
 //	'git submodule update',
 //	'git submodule status',
