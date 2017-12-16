@@ -1,5 +1,3 @@
-DirectoryIndex index.php
-
 RewriteEngine on
 RewriteBase /
 RewriteCond %{REQUEST_FILENAME} !-f
