@@ -1,10 +1,25 @@
-<html>
-    <head>
-        <title>TODO supply a title</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>TODO write content</div>
-    </body>
-</html>
+<?php 
+
+$commands = array(
+//	'echo $PWD',
+//	'whoami',
+	'git pull',
+//	'git status',
+//	'git submodule sync',
+//	'git submodule update',
+//	'git submodule status',
+//    'test -e /usr/share/update-notifier/notify-reboot-required && echo "system restart required"',
+);
+$output = "\n";
+$log = "####### ".date('Y-m-d H:i:s'). " #######\n";
+foreach($commands AS $command){
+    // Run it
+    $tmp = shell_exec("$command 2>&1");
+    // Output
+    $output .= "<span style=\"color: #6BE234;\">\$</span> <span style=\"color: #729FCF;\">{$command}\n</span>";
+    $output .= htmlentities(trim($tmp)) . "\n";
+    $log  .= "\$ $command\n".trim($tmp)."\n";
+}
+$log .= "\n";
+file_put_contents ('deploy-log.txt',$log,FILE_APPEND);
+echo $output; 
