@@ -1,0 +1,79 @@
+{% extends twig_global.getParameter('extended_layout_admin') ? twig_global.getParameter('extended_layout_admin') : 'AdminBundle:Base:layout.html.twig' %}
+
+{% block section %}halls{% endblock %}
+{% block content %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        {{ 'hall.singular' | trans }} {{ hall  }}
+        <small></small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="{{ path('admin_default_index') }}"> <i class="ion-home"></i>  {{ 'home' | trans }}</a></li>
+        <li><a href="javascript:">{{ 'ticketing' | trans }}</a></li>
+        <li><a href="{{ path('ticket_hall_index') }}">{{ 'hall.singular' | trans }}</a></li>
+        <li><a href="{{ path('ticket_hall_show', {'id': hall.id }) }}">{{ hall  }}</a></li>
+      </ol>
+    </section>
+   
+    <section class="content">
+      <div class="row">
+          <div class="col-md-12">
+              
+            {% include 'CoreBundle:Base:alert.messages.html.twig' %}
+                            
+            <!-- Custom Tabs -->
+            <div class="nav-tabs-custom">
+              <ul class="nav nav-tabs">
+                <li class="active"><a href="#info_tab" data-toggle="tab" aria-expanded="true">{{ 'information' | trans }}</a></li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active show-tables" id="info_tab">
+                   
+                    <table class="table">
+                        <tbody>                            
+                            <tr>
+                                <td>Id</td>                                
+                                <td>{{ hall.id }}</td>                            
+                            </tr>                            
+                            <tr>
+                                <td>Name</td>                               
+                                <td>{{ hall.name }}</td>                            
+                            </tr>                            
+                            <tr>
+                                <td>Slug</td>                                
+                                <td>{{ hall.slug }}</td>                            
+                            </tr>  
+                            <tr>
+                                <td>place</td>                               
+                                <td>{{ hall.place.name }}</td>                            
+                            </tr>   
+                            <tr>
+                                <td>Visible</td>                                
+                                <td>{% if hall.visible %}<span class="label label-success">{{ "yes" | trans }}</span>{% else %}<span class="label label-warning">{{ "no" | trans }}</span>{% endif %}</td> 
+                            </tr>                            
+                            <tr>
+                                <td>Active</td>                                
+                                <td>{% if hall.active %}<span class="label label-success">{{ "yes" | trans }}</span>{% else %}<span class="label label-warning">{{ "no" | trans }}</span>{% endif %}</td>                            
+                            </tr>                        
+                        </tbody>
+                    </table>
+                    
+                    <div class="box-footer">
+                        <div class="col-sm-12"> 
+                            <a href="{{ path('ticket_hall_edit', {'id': hall.id }) }}" class="btn btn-primary btn-flat"><i class="ion-compose"></i> {{ 'edit' | trans }}</a>
+                            <button type="submit" class="btn btn-danger btn-flat pull-right" id="delete-btn">{{ 'delete' | trans }}</button>    
+                            <form id="delete-entity" action="{{ path('ticket_hall_delete', { 'id': hall.id  }) }}" method="post">
+                                <input type="hidden" name="_method" value="DELETE" />
+                                {{ form_widget(delete_form) }}
+                            </form>
+                        </div>
+                    </div><!-- /.box-footer -->
+                </div><!-- /.tab-pane -->
+              </div><!-- /.tab-content -->
+            </div><!-- nav-tabs-custom -->
+          </div>
+      </div>
+    </section>
+                                
+{% endblock %}

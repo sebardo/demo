@@ -1,0 +1,11 @@
+services:
+    dynamic_relation_map_ticket.listener.doctrine_event_listener:
+        class: "TicketBundle\\EventListener\\DynamicRelationSubscriber"
+        arguments: ["%core.dynamic_discriminator_map.mapping%"]
+        tags:
+            - { name: doctrine.event_listener, event: loadClassMetadata }
+            
+    ticket_manager:
+        class: TicketBundle\Service\TicketManager
+        calls:
+            - [setContainer, ["@service_container"] ]

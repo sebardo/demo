@@ -1,0 +1,85 @@
+{% extends twig_global.getParameter('extended_layout_admin') ? twig_global.getParameter('extended_layout_admin') : 'AdminBundle:Base:layout.html.twig' %}
+
+{% block section %}shows{% endblock %}
+{% block content %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        {{ 'show.singular' | trans }} {{ show  }}
+        <small></small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="{{ path('admin_default_index') }}"> <i class="ion-home"></i>  {{ 'home' | trans }}</a></li>
+        <li><a href="javascript:">{{ 'ticketing' | trans }}</a></li>
+        <li><a href="{{ path('ticket_show_index') }}">{{ 'show.singular' | trans }}</a></li>
+        <li><a href="{{ path('ticket_show_show', {'id': show.id }) }}">{{ show  }}</a></li>
+      </ol>
+    </section>
+   
+    <section class="content">
+      <div class="row">
+          <div class="col-md-12">
+              
+            {% include 'CoreBundle:Base:alert.messages.html.twig' %}
+                            
+            <!-- Custom Tabs -->
+            <div class="nav-tabs-custom">
+              <ul class="nav nav-tabs">
+                <li class="active"><a href="#info_tab" data-toggle="tab" aria-expanded="true">{{ 'information' | trans }}</a></li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active show-tables" id="info_tab">
+                   
+                    <table class="table">
+                        <tbody>                            
+                            <tr>
+                                <td>Id</td>                                
+                                <td>{{ show.id }}</td>                            
+                            </tr>                            
+                            <tr>
+                                <td>Date</td>                                
+                                <td>{% if show.date %}{{ show.date|date('Y-m-d H:i:s') }}{% endif %}</td>                            
+                            </tr>                            
+                            <tr>
+                                <td>Description</td>                                
+                                <td>{{ show.description }}</td>                            
+                            </tr>  
+                            <tr>
+                                <td>Event</td>                                
+                                <td>{{ show.event.name }}</td>                            
+                            </tr> 
+                            <tr>
+                                <td>Place</td>                                
+                                <td>{{ show.event.place.name }}</td>                            
+                            </tr> 
+                            <tr>
+                                <td>Tickets</td>                                
+                                <td>
+                                    {% for ticket in show.tickets %}
+                                        <li>{{ ticket.actor.fullName }}</li>
+                                    {% endfor %}
+                                </td>                            
+                            </tr> 
+                            
+                            
+                        </tbody>
+                    </table>
+                    
+                    <div class="box-footer">
+                        <div class="col-sm-12"> 
+                            <a href="{{ path('ticket_show_edit', {'id': show.id }) }}" class="btn btn-primary btn-flat"><i class="ion-compose"></i> {{ 'edit' | trans }}</a>
+                            <button type="submit" class="btn btn-danger btn-flat pull-right" id="delete-btn">{{ 'delete' | trans }}</button>    
+                            <form id="delete-entity" action="{{ path('ticket_show_delete', { 'id': show.id  }) }}" method="post">
+                                <input type="hidden" name="_method" value="DELETE" />
+                                {{ form_widget(delete_form) }}
+                            </form>
+                        </div>
+                    </div><!-- /.box-footer -->
+                </div><!-- /.tab-pane -->
+              </div><!-- /.tab-content -->
+            </div><!-- nav-tabs-custom -->
+          </div>
+      </div>
+    </section>
+                                
+{% endblock %}

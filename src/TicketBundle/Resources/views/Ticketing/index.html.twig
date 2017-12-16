@@ -1,0 +1,32 @@
+{% extends twig_global.getParameter('extended_layout') ? twig_global.getParameter('extended_layout') : 'CoreBundle:Base:base.layout.html.twig' %}
+
+{% block content %}
+    
+<div class="container container-padding">    
+    <div id="tickets" class="row list-tickets">
+        {% for event in events %}
+            {% include 'TicketBundle:Ticketing:event.snipet.html.twig' %}
+        {% endfor  %}
+    </div>
+</div>
+{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets
+            'bundles/ticket/less/ticket.less'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script>
+        $(document).ready(function() {
+           
+        });
+    </script>
+{% endblock %}

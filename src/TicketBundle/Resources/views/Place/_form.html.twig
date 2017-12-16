@@ -1,0 +1,28 @@
+{{ form_errors(form) }}
+    
+{{ form_row(form.name)}} 
+{{ form_row(form.description)}} 
+
+{% include 'CoreBundle:Form:image.html.twig'%}
+
+{{ form_row(form.address)}} 
+{{ form_row(form.city)}} 
+{{ form_row(form.postalCode)}} 
+{{ form_row(form.visible)}} 
+{{ form_row(form.active)}} 
+
+<div class="box collapsed-box">
+    <div class="box-header with-border">
+        <h3 class="box-title" ><a name="moderate"></a> Advance parameters</h3>
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i></button>
+        </div>
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        {{ form_rest(form) }}
+    </div>
+<!-- /.box-body -->
+</div>
+
+       

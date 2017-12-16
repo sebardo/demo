@@ -1,0 +1,160 @@
+
+{% extends twig_global.getParameter('extended_layout') ? twig_global.getParameter('extended_layout') : 'CoreBundle:Base:base.layout.html.twig' %}
+
+{% block content %}
+    <style>.active{background: yellow;}</style>
+<div class="container container-padding">    
+    <div id="event" class="row event">
+        <div class="col-md-2"></div>
+        <div class="col-md-4">
+            {% if event.image.path is defined %}<img src="{{ event.image.path }}">{% endif %}
+            <h1>{{ event.name }}</h1>
+            <p>{{ event.description }}</p>
+            <p><b>Place:</b> {{ event.place.name }}, {{ event.place.address }}</p>
+            <p><b>Hall:</b> {{ event.hall.name }}</p>
+            <p><b>Scheme:</b> {{ event.scheme.name }}</p>
+            <p><b>Description:</b>{{ event.description }}</p>
+            <p>
+                <b>Shows</b><br>
+                {% for show in event.shows %}
+                    <li>{{ show.date | date('d/m/y') }}<br></li>
+                    <ul>    
+                        {% for ticket in show.tickets %}
+                            <li {% if sector is not defined and loop.first %}class="active"{% endif %} {% if sector is defined and ticket.sector.slug == sector.slug %}class="active"{% endif %}>
+                                <a href="{{ path('ticket_ticketing_eventsector', {'slug': event.slug, 'sector': ticket.sector.slug} ) }}">{{ ticket.sector.name }} {{ ticket.price }}€</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endfor %}
+            </p>
+            <p><b>Quantity:</b> 
+                <select id="quantity" class="form-control" style="width: auto;display: inline-block">
+                    <option value="0" >Select a seat</option>
+                    <option value="1" >1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                </select>
+            </p>
+            <p><b>Seats:</b> <span id="seats"></span></p>
+            <p><b>Price:</b> <span id="price"></span></p>
+        </div>
+        <div class="col-md-4">
+             <div id="chart" style="width: 100%; height: 300px;"></div>
+        </div>    
+        <div class="col-md-2"></div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets
+            'bundles/ticket/less/ticket.less'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="https://cdn.seats.io/chart.js"></script>
+
+
+    <script>
+        var sectors = [];
+        {% for show in event.shows %}
+            {% for ticket in show.tickets %}
+               sectors[{{ticket.sector.key}}] = '{{ ticket.price }}';
+            {% endfor %}
+        {% endfor %}
+
+        var seatsio = new seatsio.SeatingChart({
+            divId: 'chart',
+            publicKey: 'e670c4f6-aef3-42f4-abc5-99edd767ad08',
+            {% if event.hasSeasonTickets %}
+                events: [
+                {% for show in event.shows %}
+                    "{{show.id}}" {% if not loop.last %},{% endif %}
+                {% endfor %}
+                ],
+            {% else %}
+                event: "{{ event.shows.first.id }}",
+            {% endif %}
+           
+            selectBestAvailable: {
+                'number': 2,
+                'category': {% if sector is defined %}{{sector.key}}{%else%}{{ event.shows.first.tickets.first.sector.key }}{%endif%} 
+            },
+
+            onObjectSelected: function (object) {
+                update(object);
+            },
+            onObjectDeselected: function (object) {
+                update(object);
+            },
+            isObjectSelectable: function (object, defaultValue) {
+                return defaultValue && (object.category.key == {% if sector is defined %}{{sector.key}}{%else%}{{ event.shows.first.tickets.first.sector.key }}{%endif%});
+            },
+            reserveOnSelect: true,
+            regenerateReservationToken: true,
+            allowOrphanSeats: false,
+            language:"en",
+            maxSelectedObjects: 10,
+            onChartRendered: function() {
+                console.log("renderea");
+            },
+            onBestAvailableSelected: function(array_of_objects){
+                console.log("best available selected");
+                update(null);
+            },
+            onBestAvailableSelectionFailed: function(){
+                console.log("best available failed");
+            },
+            messages: {
+                "sectionAvailability.none":"No hay asientos disponibles. Cambia la ubicaci" + String.fromCharCode(243) +"n para ver la disponibilidad en este sector."
+            }
+
+
+        }).render();
+        
+        function update(object){
+            var count = seatsio.selectedObjects.length;
+            $('#quantity').val(count);
+            if(count>0){
+                $('#seats').text(seatsio.selectedObjects.join(', '));
+            }
+            if(object == null){
+                var price =  sectors[{% if sector is defined %}{{sector.key}}{%else%}{{ event.shows.first.tickets.first.sector.key }}{%endif%}] * count;
+                $('#price').text(price);
+            }else{
+                var price =  sectors[object.category.key] * count;
+                $('#price').text(price);
+            }
+            
+        }
+        var seatsioSelected = 0;
+        var seats = [];
+    </script>
+
+    <script>
+        $(document).ready(function() {
+           
+        });
+    </script>
+{% endblock %}
+
+
+
+
+
+
+

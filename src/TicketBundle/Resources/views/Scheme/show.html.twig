@@ -1,0 +1,87 @@
+{% extends twig_global.getParameter('extended_layout_admin') ? twig_global.getParameter('extended_layout_admin') : 'AdminBundle:Base:layout.html.twig' %}
+
+{% block section %}schemes{% endblock %}
+{% block content %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        {{ 'scheme.singular' | trans }} {{ scheme  }}
+        <small></small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="{{ path('admin_default_index') }}"> <i class="ion-home"></i>  {{ 'home' | trans }}</a></li>
+        <li><a href="javascript:">{{ 'ticketing' | trans }}</a></li>
+        <li><a href="{{ path('ticket_scheme_index') }}">{{ 'scheme.singular' | trans }}</a></li>
+        <li><a href="{{ path('ticket_scheme_show', {'id': scheme.id }) }}">{{ scheme  }}</a></li>
+      </ol>
+    </section>
+   
+    <section class="content">
+      <div class="row">
+          <div class="col-md-12">
+              
+            {% include 'CoreBundle:Base:alert.messages.html.twig' %}
+                            
+            <!-- Custom Tabs -->
+            <div class="nav-tabs-custom">
+              <ul class="nav nav-tabs">
+                <li class="active"><a href="#info_tab" data-toggle="tab" aria-expanded="true">{{ 'information' | trans }}</a></li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active show-tables" id="info_tab">
+                   
+                    <table class="table">
+                        <tbody>                            
+                            <tr>
+                                <td>Id</td>                                
+                                <td>{{ scheme.id }}</td>                            
+                            </tr>                            
+                            <tr>
+                                <td>Name</td>                                
+                                <td>{{ scheme.name }}</td>                            
+                            </tr>                            
+                            <tr>
+                                <td>Slug</td>                                
+                                <td>{{ scheme.slug }}</td>                            
+                            </tr>                            
+                            <tr>
+                                <td>Seating</td>                                
+                                <td>
+                                    {{ scheme.seating }}
+                                    
+                                    <iframe src="https://app.seats.io/chart/898c462b-6351-4b65-b494-70e754f26649/main"  width="100%" height="600px"></iframe>
+                                </td>                            
+                            </tr>                            
+                            <tr>
+                                <td>Default</td>                                
+                                <td>{% if scheme.default %}<span class="label label-success">{{ "yes" | trans }}</span>{% else %}<span class="label label-warning">{{ "no" | trans }}</span>{% endif %}</td>                            
+                            </tr>                           
+                            <tr>
+                                <td>Visible</td>                                
+                                <td>{% if scheme.visible %}<span class="label label-success">{{ "yes" | trans }}</span>{% else %}<span class="label label-warning">{{ "no" | trans }}</span>{% endif %}</td>                            
+                            </tr>                            
+                            <tr>
+                                <td>Active</td>                                
+                                <td>{% if scheme.active %}<span class="label label-success">{{ "yes" | trans }}</span>{% else %}<span class="label label-warning">{{ "no" | trans }}</span>{% endif %}</td>                            
+                            </tr>                        
+                        </tbody>
+                    </table>
+                    
+                    <div class="box-footer">
+                        <div class="col-sm-12"> 
+                            <a href="{{ path('ticket_scheme_edit', {'id': scheme.id }) }}" class="btn btn-primary btn-flat"><i class="ion-compose"></i> {{ 'edit' | trans }}</a>
+                            <button type="submit" class="btn btn-danger btn-flat pull-right" id="delete-btn">{{ 'delete' | trans }}</button>    
+                            <form id="delete-entity" action="{{ path('ticket_scheme_delete', { 'id': scheme.id  }) }}" method="post">
+                                <input type="hidden" name="_method" value="DELETE" />
+                                {{ form_widget(delete_form) }}
+                            </form>
+                        </div>
+                    </div><!-- /.box-footer -->
+                </div><!-- /.tab-pane -->
+              </div><!-- /.tab-content -->
+            </div><!-- nav-tabs-custom -->
+          </div>
+      </div>
+    </section>
+                                
+{% endblock %}

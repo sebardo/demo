@@ -1,0 +1,218 @@
+{% extends 'CoreBundle:Base:bootstrap.custom.layout.html.twig' %}
+
+{% block head %}
+    <meta name="description" content="My porfolio" />
+    <meta name="keywords" content="dario sebatian asurain, sebastian sasturain, sasturain, personal web, porfolio" />
+    <meta name="author" content="Dario Sebastian Sasturain" />
+
+    <!-- Favicons (created with http://realfavicongenerator.net/)-->
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}"/>
+    <link rel="apple-touch-icon" sizes="57x57" href="/bundles/front/img/favicons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/bundles/front/img/favicons/apple-touch-icon-60x60.png">
+    <link rel="icon" type="image/png" href="/bundles/front/img/favicons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/bundles/front/img/favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="img/favicons/manifest.json">
+    <link rel="shortcut icon" href="/bundles/front/img/favicons/favicon.ico">
+    <meta name="msapplication-TileColor" content="#00a8ff">
+    <meta name="msapplication-config" content="/bundles/front/img/favicons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    
+    
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets
+        'bundles/core/less/pages/oauth.less'
+        'bundles/front/css/normalize.css'
+        'bundles/front/css/owl.css'
+        'bundles/front/css/animate.css'
+        'bundles/front/fonts/font-awesome-4.1.0/css/font-awesome.min.css'
+        'bundles/front/fonts/eleganticons/et-icons.css'
+        'bundles/front/css/cardio.css'
+        'bundles/front/less/custom.less'
+        'bundles/admin/plugins/flagstrap/dist/css/flags.css'
+        'bundles/admin/plugins/iCheck/minimal/_all.css'
+        'http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+    <body class="core-body {% block body_class %}{% endblock %}">
+        
+        {% block header %}
+            <div class="preloader">
+                <img src="/bundles/front/img/loader.gif" alt="Preloader image">
+            </div>
+            <nav class="navbar">
+                <div class="container">
+                    {% include 'FrontBundle:Base:menu.html.twig' %}
+                </div>
+                <!-- /.container-fluid -->
+            </nav>
+            
+            <header id="home" >
+                {% block header_content %}{% endblock %}
+            </header>
+        {% endblock %}
+        
+        {% block container_content %}
+        <div class="container">
+            <div class="row">
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+        {% endblock %}    
+            
+         
+        
+        {% block footer %}
+            <footer>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6 text-center-mobile">
+                            <h3 class="white">Solicita tu prueba gratis</h3>
+                            <h5 class="light regular light-white">Nuestros modulos se actualizan semanalmente</h5>
+                            <a href="#" class="btn btn-blue ripple trial-button">Comienza tu prueba gratis</a>
+                        </div>
+                        <div class="col-sm-6 text-center-mobile">
+                            <h3 class="white">Horarios de atención <span class="open-blink"></span></h3>
+                            <div class="row opening-hours">
+                                <div class="col-sm-6 text-center-mobile">
+                                    <h5 class="light-white light">Lun - Vie</h5>
+                                    <h3 class="regular white">9:00 - 18:00</h3>
+                                </div>
+                                <div class="col-sm-6 text-center-mobile">
+                                    <h5 class="light-white light">Sab - Dom</h5>
+                                    <h3 class="regular white">en la playa</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row bottom-footer text-center-mobile">
+                        <div class="col-sm-8">
+                            <p>&copy; 2016 Todos los derechos reservados. Template desarrollado por <a href="http://www.phir.co/">PHIr</a> para <a href="http://tympanus.net/codrops/">Codrops</a></p>
+                        </div>
+                        <div class="col-sm-4 text-right text-center-mobile">
+                            <ul class="social-footer">
+                                <li><a href="http://www.facebook.com/pages/Codrops/159107397912"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="http://www.twitter.com/codrops"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="https://plus.google.com/101095823814290637419"><i class="fa fa-google-plus"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            <!-- Holder for mobile navigation -->
+            <div class="mobile-nav">
+                <ul>
+                </ul>
+                <a href="#" class="close-link"><i class="arrow_up"></i></a>
+            </div>
+        {% endblock %}
+        
+        {# POPUP #}
+        {#TODO (this twig function does not accept multiple anidation param in function)#}
+        {# lofin_modal_form({ params: { 
+            oauth:{ 
+                no_text: true
+            }, 
+            form_attr:{
+                form_class: 'popup-form',
+                input_email_class: 'form-white',
+                input_password_class: 'form-white',
+                icheck_class: 'minimal-white',
+                button_submit_class: 'btn-submit'
+            } } }) #}
+        <div class="modal fade" id="modalLogin" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content modal-popup">
+                    <a href="#" class="close-link"><span class="glyphicon glyphicon-remove-sign"></span></a>
+                    <h3 class="white">{{ 'login.account' | trans }}</h3>
+                    {{ login_form({
+                        form_class: 'popup-form',
+                        input_email_class: 'form-white',
+                        input_password_class: 'form-white',
+                        icheck_class: 'minimal-white',
+                        button_submit_class: 'btn-submit'
+                    }) }}
+                    <h4 class="white">o accede con tu red social</h4>
+                    <div class="oauth-buttons oauth-button-container">{{ oauth_buttons({no_text: true}) }}</div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content modal-popup">
+                    <a href="#" class="close-link"><span class="glyphicon glyphicon-remove-sign"></span></a>
+                    <h3 class="white">Registrate</h3>
+                    {{ register_form({
+                        form_class: 'popup-form',
+                        input_class: 'form-white',
+                        icheck_class: 'minimal-white',
+                        button_submit_class: 'btn-submit'
+                    }, 'short') }}
+                    <h4 class="white">o accede con tu red social</h4>
+                    <div class="oauth-buttons oauth-button-container">{{ oauth_buttons({no_text: true}) }}</div>
+                </div>
+            </div>
+        </div>
+        
+        {#<form action="" class="popup-form">
+            <input type="text" class="form-control form-white" placeholder="Full Name">
+            <input type="text" class="form-control form-white" placeholder="Email Address">
+            <div class="dropdown">
+                <button id="dLabel" class="form-control form-white dropdown" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Precios de Planes
+                </button>
+                <ul class="dropdown-menu animated fadeIn" role="menu" aria-labelledby="dLabel">
+                    <li class="animated lightSpeedIn"><a href="#">1 month membership ($150)</a></li>
+                    <li class="animated lightSpeedIn"><a href="#">3 month membership ($350)</a></li>
+                    <li class="animated lightSpeedIn"><a href="#">1 year membership ($1000)</a></li>
+                    <li class="animated lightSpeedIn"><a href="#">Free trial class</a></li>
+                </ul>
+            </div>
+            <div class="checkbox-holder text-left">
+                <div class="checkbox">
+                    <input type="checkbox" value="None" id="squaredOne" name="check" />
+                    <label for="squaredOne"><span>Estoy de acuerdo <strong>Terms &amp; Conditions</strong></span></label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-submit">Enviar</button>
+        </form>#}
+
+                
+        {% block javascripts %}
+            {{ parent() }}
+            {% javascripts
+                'bundles/front/js/owl.carousel.min.js'
+                'bundles/front/js/wow.min.js'
+                'bundles/front/js/typewriter.js'
+                'bundles/front/js/jquery.onepagenav.js'
+                'bundles/front/js/main.js'
+                'bundles/admin/plugins/flagstrap/dist/js/jquery.flagstrap.min.js'
+                'bundles/admin/plugins/iCheck/icheck.min.js'
+            %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+           
+            <script>
+                //iCheck for checkbox and radio inputs
+                $('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
+                  checkboxClass: 'icheckbox_minimal-blue',
+                  radioClass: 'iradio_minimal-blue'
+                });
+                
+                $('input[type="checkbox"].minimal-white, input[type="radio"].minimal-white').iCheck({
+                  checkboxClass: 'icheckbox_minimal-white',
+                  radioClass: 'iradio_minimal-white'
+                });
+                $(document).ready(function(){
+                    
+                });
+            </script>
+        {% endblock %}
+    </body>
+{% endblock %}

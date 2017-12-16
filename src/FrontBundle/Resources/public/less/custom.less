@@ -1,0 +1,302 @@
+@import "../../../../vendor/sebardo/blog/BlogBundle/Resources/public/less/blog.less";
+@import "../../../../vendor/sebardo/core/CoreBundle/Resources/public/less/pages/oauth.less";
+
+/* 
+    Created on : 04-oct-2016, 16:40:41
+    Author     : sebastian
+*/
+.pricing{
+    h2{
+        color: #fff;
+    }
+    .light p{
+        color: #fff;
+    }
+}
+.navbar-nav > li > a {
+    padding: 15px 25px;
+    font-size: 16px;
+    color: white;
+}
+.btn-core{
+    color: #fff;
+    padding: 6px 12px;
+    font-size: 14px;
+    background: #00a8ff;
+    border: 2px solid transparent;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+}
+.form-errors{
+    padding: 0;
+    list-style: none;
+}
+
+.btn-core:hover{
+    color: #fff;
+}
+.owl-pagination{
+    line-height: 23px!important;
+}
+.btn-primary{
+    color: #fff;
+    border-color: #fff;
+    background: transparent;
+}
+.btn-primary:hover {
+    color: #00a8ff;
+    background: #fff;
+    border-color: #fff;
+}
+.intro-table-hover .expand {
+    margin-top: 70px;
+}
+.main-nav li a:hover,.main-nav li a:focus{
+    background-color: transparent;
+}
+.main-nav li a.btn.btn-blue:hover,.main-nav li a.btn.btn-blue:focus{
+    background-color: transparent;
+}
+
+/*********************/
+/******Language*******/
+/*********************/
+.container-language{
+    .btn-default{
+        border: none;
+    }
+    #select-language > button{
+        background-color: transparent;
+        border-color:transparent;
+        border: none;
+    }
+    .btn-default:hover, .dropdown-toggle.btn-default:hover,.open > .dropdown-toggle.btn-default {
+        background-color: transparent;
+        border-color:transparent;
+        border: none;
+    }
+    .btn-default > span{
+        color: white;
+    }
+    .btn.dropdown-toggle{
+        padding-right: 0;
+    }
+    .dropdown-menu{
+        min-width: 30px;
+    }
+}
+.navbar-fixed-top{
+    .btn-default > span{
+        color: #bbb;
+    }
+}
+.btn.btn-blue:hover{
+    background: #00a8ff!important;
+}
+
+
+/*********************/
+/********MENU*********/
+/*********************/
+.core-body{
+    
+    /*********************/
+    /****Access menu*****/
+    /*********************/
+    .access {
+        font-size: 17px;
+        display: inline-block;
+        padding: 11px 30px;
+        span:hover{
+            text-decoration: underline;
+        }
+    }
+    
+    .profile-menu {
+        padding: 0px;
+        border: none;
+        button{
+            font-size: 16px;
+            background: transparent;
+            border: none;
+            padding: 14px 30px;
+            box-shadow: none;
+        }
+        .dropdown-menu > li > a{
+            padding: 14px 30px;
+        }
+    }
+    .container > .navbar-collapse{
+        padding: 0;
+    }
+    .navbar{
+        top: 0;
+        padding: 25px 0 15px;
+    }
+    .navbar-fixed-top{
+        padding: 25px 0 15px!important;
+    }
+    header#home{
+        height: 100px;
+    }
+}
+.core-body.home .navbar{
+    top: 50px;
+    padding: 0px;
+}
+
+
+/*********************/
+/*******LOGIN*********/
+/*********************/
+#modalLogin, #modalRegister{
+    .popup-form .form-control {
+        margin: 0;
+    }
+    .oauth-buttons{
+        padding: 0 50px;
+        display: flex;
+    }
+    form[name="login"], form[name="registration_short"]{
+        margin: 10px 60px auto;
+        display: inline-block;
+        .added{
+            display: inline-block;
+            width: 100%;
+            color: #fff;
+            margin-bottom: 0;
+            >div:first-child{
+                text-align: left;
+            }
+            >div{
+                padding: 0;
+                a{
+                    color: #fff;
+                }
+            }
+        }
+        .checkboxes{
+            text-align: left;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+    }   
+    .modal-popup{
+        form.popup-form>div.row>div.pull-left, form.popup-form>div.row>div>a.pull-right{
+            color: #fff;
+            text-align: left;
+        }
+        .btn-submit{
+            padding: 15px;
+            font-size: 18px;
+            margin-top: 0;
+        }
+        .icheckbox_minimal-white{
+            border: 2px solid #fff;
+            width: 20px;
+            height: 20px;
+        }
+        .icheckbox_minimal-white.checked {
+            background-position: -41px -1px;
+        }
+    }
+}
+.container-login{
+    h2{
+        text-align: center;
+        font-size: 40px;
+    }
+    padding: 5em 0;
+    form[name="login"]{
+        input[type="text"],input[type="password"]{
+            background: #29323b;
+            color: #fff;
+        }
+    }
+    button{
+        font-size: 18px;
+        padding: 15px
+    }
+}
+/*********************/
+/******REGISTER*******/
+/*********************/
+#modalRegister .modal-popup{
+    overflow: auto;
+}
+form.popup-form[name="registration"]{
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-width: 500px;
+    .col-md-4{
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+.container-register{
+    h2{
+        text-align: center;
+        font-size: 40px;
+    }
+    padding: 5em 0;
+    form[name="registration"]{
+        input[type="text"],input[type="password"], select{
+            background: #29323b;
+            color: #fff;
+        }
+        #registration_state{
+            padding-left: 10px;
+            padding-right: 5px;
+        }
+        #registration_country{
+            padding-left: 25px;
+            padding-right: 10px;
+        }
+    }
+}
+/*********************/
+/******RECOVERY*******/
+/*********************/
+.container-recovery{
+    padding: 5em 0;
+    h2{
+        text-align: center;
+        font-size: 40px;
+    }
+    form[name="recovery_email"]{
+        input[type="email"]{
+            background: #29323b;
+            color: #fff;
+        }
+    }
+}
+
+/*********************/
+/********BLOG*********/
+/*********************/
+.subscribe {
+    .btn-primary{
+        background: #00a8ff;
+    }
+    .btn-primary:hover{
+        color: #fff;
+    }
+}
+
+/*********************/
+/*****ECOMMERCE*******/
+/*********************/
+.cart-detail, .identification{
+    padding: 5em 0;
+    
+}

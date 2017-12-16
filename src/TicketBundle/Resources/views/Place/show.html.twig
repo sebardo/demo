@@ -1,0 +1,114 @@
+{% extends twig_global.getParameter('extended_layout_admin') ? twig_global.getParameter('extended_layout_admin') : 'AdminBundle:Base:layout.html.twig' %}
+
+{% block section %}places{% endblock %}
+{% block content %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        {{ 'place.singular' | trans }} {{ place  }}
+        <small></small>
+      </h1>
+      <ol class="breadcrumb">
+        <li><a href="{{ path('admin_default_index') }}"> <i class="ion-home"></i>  {{ 'home' | trans }}</a></li>
+        <li><a href="javascript:">{{ 'ticketing' | trans }}</a></li>
+        <li><a href="{{ path('ticket_place_index') }}">{{ 'place.singular' | trans }}</a></li>
+        <li><a href="{{ path('ticket_place_show', {'id': place.id }) }}">{{ place  }}</a></li>
+      </ol>
+    </section>
+   
+    <section class="content">
+      <div class="row">
+          <div class="col-md-12">
+              
+            {% include 'CoreBundle:Base:alert.messages.html.twig' %}
+                            
+            <!-- Custom Tabs -->
+            <div class="nav-tabs-custom">
+              <ul class="nav nav-tabs">
+                <li class="active"><a href="#info_tab" data-toggle="tab" aria-expanded="true">{{ 'information' | trans }}</a></li>
+              </ul>
+              <div class="tab-content">
+                <div class="tab-pane active show-tables" id="info_tab">
+                   
+                    <table class="table">
+                        <tbody>                            <tr>
+                                <td>Id</td>                                
+                                <td>{{ place.id }}</td>                           
+                            </tr>                            
+                            <tr>
+                                <td>Name</td>                                
+                                <td>{{ place.name }}</td>                            
+                            </tr>                           
+                            <tr>
+                                <td>Slug</td>                                
+                                <td>{{ place.slug }}</td>                            
+                            </tr>                            
+                            <tr>
+                                <td>Description</td>                                
+                                <td>{{ place.description }}</td>                            
+                            </tr>                            
+                            <tr>
+                                <td>Technicaldetails</td>                                
+                                <td>{{ place.technicalDetails }}</td>                            
+                            </tr>       
+                            <tr>
+                                <td>Image</td>                                
+                                <td>
+                                    {% if place.image %}<img style="max-width: 100%" src="{{ place.image.path }}">{% endif %}
+                                </td>                            
+                            </tr> 
+                            <tr>
+                                <td>Visible</td>                                
+                                <td>{% if place.visible %}<span class="label label-success">{{ "yes" | trans }}</span>{% else %}<span class="label label-warning">{{ "no" | trans }}</span>{% endif %}</td>                            
+                            </tr>                            
+                            <tr>
+                                <td>Active</td>                                
+                                <td>{% if place.active %}<span class="label label-success">{{ "yes" | trans }}</span>{% else %}<span class="label label-warning">{{ "no" | trans }}</span>{% endif %}</td>                            
+                            </tr>                            
+                            <tr>
+                                <td>Dni</td>                                
+                                <td>{{ place.dni }}</td>                            
+                            </tr>                            
+                            <tr>
+                                <td>Address</td>                                
+                                <td>{{ place.address }}</td>                            
+                            </tr>                            
+                            <tr>
+                                <td>Postalcode</td>                                
+                                <td>{{ place.postalCode }}</td>                            
+                            </tr>                            
+                            <tr>
+                                <td>City</td>                                
+                                <td>{{ place.city }}</td>                            
+                            </tr>                            
+                            <tr>
+                                <td>Metatitle</td>                                
+                                <td>{{ place.metaTitle }}</td>                           
+                            </tr>                            <tr>
+                                <td>Metadescription</td>                          
+                                <td>{{ place.metaDescription }}</td>                            
+                            </tr>                           
+                            <tr>
+                                <td>Metatags</td>                               
+                                <td>{{ place.metaTags }}</td>                           
+                            </tr>                        </tbody>
+                    </table>
+                    
+                    <div class="box-footer">
+                        <div class="col-sm-12"> 
+                            <a href="{{ path('ticket_place_edit', {'id': place.id }) }}" class="btn btn-primary btn-flat"><i class="ion-compose"></i> {{ 'edit' | trans }}</a>
+                            <button type="submit" class="btn btn-danger btn-flat pull-right" id="delete-btn">{{ 'delete' | trans }}</button>    
+                            <form id="delete-entity" action="{{ path('ticket_place_delete', { 'id': place.id  }) }}" method="post">
+                                <input type="hidden" name="_method" value="DELETE" />
+                                {{ form_widget(delete_form) }}
+                            </form>
+                        </div>
+                    </div><!-- /.box-footer -->
+                </div><!-- /.tab-pane -->
+              </div><!-- /.tab-content -->
+            </div><!-- nav-tabs-custom -->
+          </div>
+      </div>
+    </section>
+                                
+{% endblock %}

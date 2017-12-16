@@ -1,0 +1,105 @@
+{% extends twig_global.getParameter('extended_layout') ? twig_global.getParameter('extended_layout') : 'CoreBundle:Base:base.layout.html.twig' %}
+{% block body_class %}home{% endblock %}
+
+{% block header_content %}
+    <div class="container">
+        <div class="table">
+            <div class="header-text">
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <h3 class="light white">{{ 'home.title' | trans }}</h3>
+                        <h1 class="white typed">{{ 'home.subtitle' | trans }}</h1>
+                        <span class="typed-cursor">|</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block container_content %}
+<div class="container-fluid">
+    <div class="row">
+        <section>
+            <div class="cut cut-top" style="border-right: 30px solid #f7f7f7"></div>
+            <!--<div class="container">
+                <div class="row intro-tables">
+                    <div class="col-md-8">
+                        <div class="intro-table intro-table-hover">
+                            <h5 class="white heading hide-hover">Membrecia Premium</h5>
+                            <div class="bottom">
+                                <h4 class="white heading small-heading no-margin regular">Registrate Hoy</h4>
+                                <h4 class="white heading small-pt">20% de Descuento</h4>
+                                <a href="#" class="btn btn-white-fill expand">Registrate</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="intro-table intro-table-third">
+                            <h5 class="white heading">Clientes felices</h5>
+                            <div class="owl-testimonials bottom">
+                                <div class="item">
+                                    <h4 class="white heading content">No puedo estar mas felíz de los resultados!</h4>
+                                    <h5 class="white heading light author">Adam Jordan</h5>
+                                </div>
+                                <div class="item">
+                                    <h4 class="white heading content">Ahora puedo presentarme profesionalmente con mucho orgullo!</h4>
+                                    <h5 class="white heading light author">Greg Pardon</h5>
+                                </div>
+                                <div class="item">
+                                    <h4 class="white heading content">Mis ventas han mejorado notoriamente.</h4>
+                                    <h5 class="white heading light author">Christina Goldman</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+        </section>
+        {% set items = get_menu_items(true) %}
+        {% for item in items %}
+            <section id="{{item.slug}}" class="section {{item.className}}">
+                <div class="container">
+                    <div class="row title text-center">
+                        <h2>{{item.name}}</h2>
+                        <h4 class="light muted">{{item.shortDescription | raw}}</h4>
+                    </div>
+                    <div class="row">
+                        {{item.description | raw }}
+                    </div>
+                </div>
+                {% if item.id == 2 %}<div class="cut cut-bottom"></div>{% endif %}
+            </section>
+        {% endfor %}        
+   
+        <!-- Blog -->
+        <section id="_blog" class="section">
+            <div class="cut cut-top"></div>
+            <div class="container container-blog">
+                <div class="row title text-center">
+                    <h2>Blog</h2>
+                    <h4 class="light muted">{{ 'home.blog.title' | trans }}</h4>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 post-list" id="post-list">
+                        {{ blog_list() }}
+                    </div>
+                    <div class="col-md-4 post-sidebar">
+                      {% include 'BlogBundle:Blog:sidebar.html.twig'%}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+{% endblock %}
+ 
+{% block stylesheets %}
+    {{ parent() }}
+    {% stylesheets
+            'bundles/blog/less/blog.less'
+    %}
+        <link rel="stylesheet" href="{{ asset_url }}">
+    {% endstylesheets %}
+{% endblock %}
