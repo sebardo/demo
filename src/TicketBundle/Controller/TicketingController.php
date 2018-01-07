@@ -53,7 +53,7 @@ class TicketingController extends Controller
             // Create an asset resource and set its snippet metadata and type.
             // This example sets the video's title, description, keyword tags, and
             // video category.
-            $snippet = new Google_Service_YouTube_VideoSnippet();
+            $snippet = new \Google_Service_YouTube_VideoSnippet();
             $snippet->setTitle("Test title");
             $snippet->setDescription("Test description");
             $snippet->setTags(array("tag1", "tag2"));
@@ -64,11 +64,11 @@ class TicketingController extends Controller
 
             // Set the video's status to "public". Valid statuses are "public",
             // "private" and "unlisted".
-            $status = new Google_Service_YouTube_VideoStatus();
+            $status = new \Google_Service_YouTube_VideoStatus();
             $status->privacyStatus = "public";
 
             // Associate the snippet and status objects with a new video resource.
-            $video = new Google_Service_YouTube_Video();
+            $video = new \Google_Service_YouTube_Video();
             $video->setSnippet($snippet);
             $video->setStatus($status);
 
@@ -85,7 +85,7 @@ class TicketingController extends Controller
             $insertRequest = $youtube->videos->insert("status,snippet", $video);
 
             // Create a MediaFileUpload object for resumable uploads.
-            $media = new Google_Http_MediaFileUpload(
+            $media = new \Google_Http_MediaFileUpload(
                 $client,
                 $insertRequest,
                 'video/*',
@@ -117,10 +117,10 @@ class TicketingController extends Controller
 
             $htmlBody .= '</ul>';
 
-          } catch (Google_Service_Exception $e) {
+          } catch (\Google_Service_Exception $e) {
             $htmlBody .= sprintf('<p>A service error occurred: <code>%s</code></p>',
                 htmlspecialchars($e->getMessage()));
-          } catch (Google_Exception $e) {
+          } catch (\Google_Exception $e) {
             $htmlBody .= sprintf('<p>An client error occurred: <code>%s</code></p>',
                 htmlspecialchars($e->getMessage()));
           }
