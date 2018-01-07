@@ -23,7 +23,7 @@ class TicketingController extends Controller
         $client->setClientId($OAUTH2_CLIENT_ID);
         $client->setClientSecret($OAUTH2_CLIENT_SECRET);
         $client->setScopes('https://www.googleapis.com/auth/youtube');
-        $redirect = filter_var('http://' . $_SERVER['HTTP_HOST'] . '/admin/posts/videos', FILTER_SANITIZE_URL);
+        $redirect = filter_var('http://' . $_SERVER['HTTP_HOST'] . '/videos', FILTER_SANITIZE_URL);
         $client->setRedirectUri($redirect);
 
         // Define an object that will be used to make all API requests.
