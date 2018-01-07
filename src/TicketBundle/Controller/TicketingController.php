@@ -9,7 +9,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class TicketingController extends Controller
 {
      /**
-     * @Route("/videos", name="admin_post_video")
+     * @Route("/videos", name="admin_video")
      * @Template()
      */
     public function videoAction(Request $request)
